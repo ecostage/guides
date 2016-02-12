@@ -1,6 +1,9 @@
 AllCops:
   Exclude:
-    - db/schema.rb
+    - config.ru
+    - bin/**/*
+    - db/**/*
+    - config/**/*
 
 Style/AccessorMethodName:
   Description: Check the naming of accessor methods for get_/set_.
@@ -334,7 +337,7 @@ Style/StringLiterals:
   EnforcedStyle: double_quotes
   Enabled: true
 
-Style/TrailingComma:
+Style/TrailingCommaInLiteral:
   Description: 'Checks for trailing comma in parameter lists and literals.'
   StyleGuide: 'https://github.com/bbatsov/ruby-style-guide#no-trailing-array-commas'
   EnforcedStyleForMultiline: comma
@@ -558,10 +561,6 @@ Rails/Date:
   Description: >-
                   Checks the correct usage of date aware methods,
                   such as Date.today, Date.current etc.
-  Enabled: false
-
-Rails/DefaultScope:
-  Description: 'Checks if the argument passed to default_scope is a block.'
   Enabled: false
 
 Rails/FindBy:
