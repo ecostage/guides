@@ -1,9 +1,21 @@
 AllCops:
   Exclude:
     - config.ru
-    - bin/**/*
     - db/**/*
     - config/**/*
+    - node_modules/**/*
+    - Rakefile
+  RunRailsCops: true
+
+Metrics/AbcSize:
+  Description: >-
+                 A calculated magnitude based on number of assignments,
+                 branches, and conditions.
+  Reference: 'http://c2.com/cgi/wiki?AbcMetric'
+  Enabled: true
+  Max: 20
+  Exclude:
+    - bin/setup
 
 Style/AccessorMethodName:
   Description: Check the naming of accessor methods for get_/set_.
@@ -13,6 +25,20 @@ Style/Alias:
   Description: 'Use alias_method instead of alias.'
   StyleGuide: 'https://github.com/bbatsov/ruby-style-guide#alias-method'
   Enabled: false
+
+Style/AlignParameters:
+  Description: >-
+                 Align the parameters of a method call if they span more
+                 than one line.
+  StyleGuide: 'https://github.com/bbatsov/ruby-style-guide#no-double-indent'
+  Enabled: true
+  EnforcedStyle: with_fixed_indentation
+
+Style/AndOr:
+  Description: 'Use &&/|| instead of and/or.'
+  StyleGuide: 'https://github.com/bbatsov/ruby-style-guide#no-and-or-or'
+  Enabled: true
+  EnforcedStyle: conditionals
 
 Style/ArrayJoin:
   Description: 'Use Array#join instead of Array#*.'
@@ -34,9 +60,61 @@ Style/Attr:
   StyleGuide: 'https://github.com/bbatsov/ruby-style-guide#attr'
   Enabled: false
 
+Style/BlockDelimiters:
+  StyleGuide: 'https://github.com/bbatsov/ruby-style-guide#single-line-blocks'
+  Enabled: true
+  EnforcedStyle:
+    # This looks at the usage of a block's method to determine its type (e.g. is
+    # the result of a `map` assigned to a variable or passed to another
+    # method) but exceptions are permitted in the `ProceduralMethods`,
+    # `FunctionalMethods` and `IgnoredMethods` sections below.
+    semantic
+  ProceduralMethods:
+    # Methods that are known to be procedural in nature but look functional from
+    # their usage, e.g.
+    #
+    #   time = Benchmark.realtime do
+    #     foo.bar
+    #   end
+    #
+    # Here, the return value of the block is discarded but the return value of
+    # `Benchmark.realtime` is used.
+    - benchmark
+    - bm
+    - bmbm
+    - create
+    - each_with_object
+    - measure
+    - new
+    - realtime
+    - tap
+    - with_object
+  FunctionalMethods:
+    # Methods that are known to be functional in nature but look procedural from
+    # their usage, e.g.
+    #
+    #   let(:foo) { Foo.new }
+    #
+    # Here, the return value of `Foo.new` is used to define a `foo` helper but
+    # doesn't appear to be used from the return value of `let`.
+    - let
+    - let!
+    - subject
+    - watch
+  IgnoredMethods:
+    # Methods that can be either procedural or functional and cannot be
+    # categorised from their usage alone.
+    - lambda
+    - proc
+    - it
+
 Metrics/BlockNesting:
   Description: 'Avoid excessive block nesting'
   StyleGuide: 'https://github.com/bbatsov/ruby-style-guide#three-is-the-number-thou-shalt-count'
+  Enabled: false
+
+Style/BracesAroundHashParameters:
+  Description: 'Enforce braces style around hash parameters.'
   Enabled: false
 
 Style/CaseEquality:
@@ -87,6 +165,12 @@ Style/CommentAnnotation:
   StyleGuide: 'https://github.com/bbatsov/ruby-style-guide#annotate-keywords'
   Enabled: false
 
+Style/CommentIndentation:
+  Description: 'Indentation of comments.'
+  Enabled: true
+  Exclude:
+    - spec/spec_helper.rb
+
 Metrics/CyclomaticComplexity:
   Description: >-
                  A complexity metric that is strongly correlated to the number
@@ -119,6 +203,12 @@ Style/DoubleNegation:
 Style/EachWithObject:
   Description: 'Prefer `each_with_object` over `inject` or `reduce`.'
   Enabled: false
+
+Style/EmptyLines:
+  Description: "Don't use several empty lines in a row."
+  Enabled: true
+  Exclude:
+    - bin/**/*
 
 Style/EmptyLiteral:
   Description: 'Prefer literals to Array.new/Hash.new/String.new.'
@@ -166,6 +256,15 @@ Style/GuardClause:
   StyleGuide: 'https://github.com/bbatsov/ruby-style-guide#no-nested-conditionals'
   Enabled: false
 
+Style/HashSyntax:
+  Description: >-
+                 Prefer Ruby 1.9 hash syntax { a: 1, b: 2 } over 1.8 syntax
+                 { :a => 1, :b => 2 }.
+  StyleGuide: 'https://github.com/bbatsov/ruby-style-guide#hash-literals'
+  Enabled: true
+  Exclude:
+    - lib/tasks/**/*
+
 Style/IfUnlessModifier:
   Description: >-
                  Favor modifier if/unless usage when you have a
@@ -201,12 +300,17 @@ Style/LineEndConcatenation:
 Metrics/LineLength:
   Description: 'Limit lines to 80 characters.'
   StyleGuide: 'https://github.com/bbatsov/ruby-style-guide#80-character-limits'
-  Max: 80
+  Max: 120
+  AllowHeredoc: true
+  AllowURI: true
+  URISchemes:
+    - http
+    - https
 
 Metrics/MethodLength:
   Description: 'Avoid methods longer than 10 lines of code.'
   StyleGuide: 'https://github.com/bbatsov/ruby-style-guide#short-methods'
-  Enabled: false
+  Enabled: true
 
 Style/ModuleFunction:
   Description: 'Checks for usage of `extend self` in modules.'
@@ -326,16 +430,38 @@ Style/SignalException:
   StyleGuide: 'https://github.com/bbatsov/ruby-style-guide#fail-method'
   Enabled: false
 
+Style/SpaceAroundEqualsInParameterDefault:
+  Description: >-
+                 Checks that the equals signs in parameter default assignments
+                 have or don't have surrounding space depending on
+                 configuration.
+  StyleGuide: 'https://github.com/bbatsov/ruby-style-guide#spaces-around-equals'
+  Enabled: true
+  EnforcedStyle: space
+
 Style/SpecialGlobalVars:
   Description: 'Avoid Perl-style global variables.'
   StyleGuide: 'https://github.com/bbatsov/ruby-style-guide#no-cryptic-perlisms'
   Enabled: false
 
+Style/SpaceInsideBrackets:
+  Description: 'No spaces after [ or before ].'
+  StyleGuide: 'https://github.com/bbatsov/ruby-style-guide#no-spaces-braces'
+  Enabled: false
+
+Style/SpaceInsideParens:
+  Description: 'No spaces after ( or before ).'
+  StyleGuide: 'https://github.com/bbatsov/ruby-style-guide#no-spaces-braces'
+  Enabled: true
+  Exclude:
+    - spec/**/*
+
 Style/StringLiterals:
   Description: 'Checks if uses of quotes match the configured preference.'
   StyleGuide: 'https://github.com/bbatsov/ruby-style-guide#consistent-string-literals'
-  EnforcedStyle: double_quotes
+  EnforcedStyle: single_quotes
   Enabled: true
+  ConsistentQuotesInMultiline: true
 
 Style/TrailingCommaInLiteral:
   Description: 'Checks for trailing comma in parameter lists and literals.'

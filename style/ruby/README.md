@@ -3,7 +3,6 @@ Ruby
 
 [Sample](sample.rb)
 
-* Avoid conditional modifiers (lines that end with conditionals).
 * Avoid multiple assignments per line (`one, two = 1, 2`).
 * Avoid organizational comments (`# Validations`).
 * Avoid ternary operators (`boolean ? true : false`). Use multi-line `if`
@@ -19,7 +18,7 @@ Ruby
 * Prefer `select` over `find_all`.
 * Prefer `map` over `collect`.
 * Prefer `reduce` over `inject`.
-* Prefer double quotes for strings.
+* Prefer single quotes for strings.
 * Prefer `&&` and `||` over `and` and `or`.
 * Prefer `!` over `not`.
 * Prefer `&:method_name` to `{ |item| item.method_name }` for simple method

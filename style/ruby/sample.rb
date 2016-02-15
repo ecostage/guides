@@ -8,9 +8,9 @@ class SomeClass
   end
 
   def method_with_arguments(argument_one, argument_two)
-    a_really_long_line_that_is_broken_up_over_multiple_lines_and.
-      subsequent_lines_are_indented_and.
-      each_method_lives_on_its_own_line
+    a_really_long_line_that_is_broken_up_over_multiple_lines_and
+      .subsequent_lines_are_indented_and
+      .each_method_lives_on_its_own_line
   end
 
   def method_with_required_keyword_arguments(one:, two:)
