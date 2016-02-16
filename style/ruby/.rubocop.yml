@@ -5,7 +5,6 @@ AllCops:
     - config/**/*
     - node_modules/**/*
     - Rakefile
-  RunRailsCops: true
 
 Metrics/AbcSize:
   Description: >-
@@ -678,6 +677,9 @@ Performance/StringReplacement:
   Enabled: false
 
 # Rails
+
+Rails:
+  Enabled: true
 
 Rails/ActionFilter:
   Description: 'Enforces consistent use of action filter methods.'
