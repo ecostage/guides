@@ -8,11 +8,8 @@ Guides for getting things done, programming well, and programming in style.
 * [Protocol](/protocol)
   * [Communication](/protocol/communication)
   * [Git](/protocol/git)
-  * [iOS](/protocol/ios)
   * [Open Source](/protocol/open-source)
   * [Product Review](/protocol/product-review)
-  * [Rails](/protocol/rails)
-* [Security](/security)
 * [Style](/style)
 
 High level guidelines:
@@ -33,9 +30,6 @@ Contributing
 ------------
 
 Please read the [contribution guidelines] before submitting a pull request.
-
-In particular: **if you have commit access, please don't merge changes without
-waiting a week for everybody to leave feedback**.
 
 [contribution guidelines]: /CONTRIBUTING.md
 
