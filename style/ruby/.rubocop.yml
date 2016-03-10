@@ -106,6 +106,8 @@ Style/BlockDelimiters:
     - lambda
     - proc
     - it
+    - before
+    - sequence
 
 Metrics/BlockNesting:
   Description: 'Avoid excessive block nesting'
